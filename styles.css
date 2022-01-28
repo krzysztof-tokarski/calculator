@@ -1,0 +1,220 @@
+/* BODY */
+
+:root {
+    --digitRed: rgba(71, 7, 23, 0.808);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: antiquewhite;
+    justify-content: space-between;
+    align-items: stretch;
+    overflow: auto;
+    margin: 0;
+    min-height: 100vh;
+    font-family: theBlackLight;
+    color:rgba(0, 0, 0, 0.822);
+}
+
+/* HEADER */
+
+
+#header {
+    padding-top: 25px;
+    flex: 1;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 50px;
+}
+
+.title {
+    font-size: 100px;
+    font-weight: bold;
+    font-family: theBlackLight;
+}
+
+#footer,
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.button {
+    font-family: theBlackLight;
+    font-size: 25px;
+    width: 100px;
+    height: 50px;
+    border-style:double;
+    border-radius: 15px;
+    background-color: rgb(243, 218, 181);
+    color:rgba(0, 0, 0, 0.822);
+    margin-bottom: -50px;
+}
+
+
+/* MAIN */
+
+
+#main {
+    display: flex;
+    flex-direction: column;
+    flex:9;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 100px;
+}
+
+#calculatorBody {
+    display: flex;
+    flex-direction: column;
+    border: 10px solid rgba(26, 7, 10, 0.774);
+    background-color: rgba(7, 5, 24, 0.836);
+    border-top-left-radius: 10px;
+    border-top-right-radius:10px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    height: 800px;
+    width: 550px;
+    padding: 20px;
+    gap:25px;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+    
+}
+
+#displayScreen {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100px;
+    border-radius: 25px;
+    border: 10px solid rgba(14, 245, 195, 0.808);
+    background-color: whitesmoke;
+    font-family: Open24DisplaySt;
+    font-size: 100px;
+    padding: 10px;
+    font-weight: lighter;
+
+}
+
+#level4,
+#level3,
+#level2,
+#level1,
+#floor {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+#buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+}
+
+.digit {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    border: 7px solid rgb(22, 219, 233);
+    padding: 25px;
+    background-color: white;
+    user-select: none
+    /* box-shadow: -3px 3px var(--digitRed), -2px 2px var(--digitRed), -1px 1px var(--digitRed); */
+}
+
+
+
+.operator {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 50px;
+    width: 50px;
+    padding: 25px;
+    border: 7px solid rgba(247, 1, 63, 0.808);
+    background-color: rgb(0, 0, 0);
+    border-radius: 25%;
+    user-select: none
+}
+
+redbutton {
+    rgba(247, 1, 63, 0.808);
+}
+
+
+#bDecimal {
+}
+
+
+#bEquals {
+
+}
+
+
+
+
+
+/* FOOTER */
+
+
+#footer {
+    flex: 0.5;
+    font-weight: bold;
+    row-gap: 10px;
+    margin-bottom: 25px;
+    font-size: 30px;
+}
+
+
+
+
+/* SPECIFIC ELEMENTS */
+
+
+a {
+    text-decoration: none;
+}
+
+.GitHubLogo {
+    height: 40px;
+}
+
+@font-face {
+    font-family: theBlackLight;
+    src: url(./fonts/TheBlacklight.ttf);
+}
+
+@font-face {
+    font-family: monofur;
+    src: url(./fonts/monofur/monof55.ttf)
+}
+
+@font-face {
+    font-family: Calculator;
+    src: url(./fonts/Calculator.ttf);
+}
+
+@font-face {
+    font-family: Open24DisplaySt;
+    src: url(./fonts/open_24_display_st/Open24DisplaySt.ttf);
+}
+
+
+
+
