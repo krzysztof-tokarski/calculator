@@ -1,21 +1,19 @@
 /* BODY */
 
-:root {
-    --digitRed: rgba(71, 7, 23, 0.808);
-}
-
 body {
     display: flex;
     flex-direction: column;
-    background-color: antiquewhite;
+    background-image: repeating-linear-gradient(rgb(39, 48, 100), rgb(97, 90, 84));
+    background-color: rgb(176, 177, 192);
     justify-content: space-between;
     align-items: stretch;
     overflow: auto;
     margin: 0;
     min-height: 100vh;
-    font-family: theBlackLight;
+    font-family: Arial, Helvetica, sans-serif;
     color:rgba(0, 0, 0, 0.822);
 }
+
 
 /* HEADER */
 
@@ -26,12 +24,10 @@ body {
     text-align: center;
     font-size: 50px;
     margin-bottom: 50px;
-}
-
-.title {
+    color: white;
+    font-family: Open24DisplaySt;
     font-size: 100px;
-    font-weight: bold;
-    font-family: theBlackLight;
+    letter-spacing: 20px;
 }
 
 #footer,
@@ -71,7 +67,7 @@ body {
 #calculatorBody {
     display: flex;
     flex-direction: column;
-    border: 10px solid rgba(26, 7, 10, 0.774);
+    border: 10px solid rgba(226, 216, 218, 0.932);
     background-color: rgba(7, 5, 24, 0.836);
     border-top-left-radius: 10px;
     border-top-right-radius:10px;
@@ -85,7 +81,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 50px;
-    
 }
 
 #displayScreen {
@@ -96,7 +91,7 @@ body {
     border-radius: 25px;
     border: 10px solid rgba(14, 245, 195, 0.808);
     background-color: whitesmoke;
-    font-family: Open24DisplaySt;
+    font-family: Calculator;
     font-size: 100px;
     padding: 10px;
     font-weight: lighter;
@@ -110,8 +105,7 @@ body {
 #floor {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    gap: 20px;
+    gap: 15px;
 }
 
 #buttonsContainer {
@@ -126,7 +120,7 @@ body {
     flex: 1;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
+    border-radius: 15px;
     height: 50px;
     width: 50px;
     border: 7px solid rgb(22, 219, 233);
@@ -149,13 +143,15 @@ body {
     padding: 25px;
     border: 7px solid rgba(247, 1, 63, 0.808);
     background-color: rgb(0, 0, 0);
-    border-radius: 25%;
+    border-radius: 15px;
     user-select: none
 }
 
-redbutton {
-    rgba(247, 1, 63, 0.808);
+#b0 {
+    flex:3.3;
+    border-radius: 15px;
 }
+
 
 
 #bDecimal {
@@ -179,6 +175,9 @@ redbutton {
     row-gap: 10px;
     margin-bottom: 25px;
     font-size: 30px;
+    font-family: theBlackLight;    ;
+    letter-spacing: 10px;
+    color: white;
 }
 
 
@@ -193,16 +192,12 @@ a {
 
 .GitHubLogo {
     height: 40px;
+
 }
 
 @font-face {
     font-family: theBlackLight;
     src: url(./fonts/TheBlacklight.ttf);
-}
-
-@font-face {
-    font-family: monofur;
-    src: url(./fonts/monofur/monof55.ttf)
 }
 
 @font-face {

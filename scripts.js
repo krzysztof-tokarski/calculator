@@ -3,10 +3,10 @@ let operand1 = null
 let operand2 = null
 let displayValue = ""
 let buttonValue = null
-let displayFlag
+let displayFlag = 0
+let afterCalculationFlag = 0
 
 const b0 = document.querySelector('#b0');
-const b00 = document.querySelector('#b00');
 const b1 = document.querySelector('#b1');
 const b2 = document.querySelector('#b2');
 const b3 = document.querySelector('#b3');
@@ -31,68 +31,75 @@ const clearEntryButton = document.querySelector('#clearEntryButton');
 const createNegativeButton = document.querySelector('#createNegativeButton');
 const calculationButtons = document.querySelectorAll('.calculate')
 
+createNegativeButton.addEventListener('click',createNegative)
+
+
 allClearButton.addEventListener('click', allClear)
 clearEntryButton.addEventListener('click', clearEntry)
 
 digitButtons.forEach ((digitButton) => {
      digitButton.addEventListener('click', changeDisplayValue)
-     digitButton.addEventListener('click', changeDisplayValue)})
+})
 
 function changeDisplayValue () {
+     if (displayValue.length == 11) {
+          displayScreen.textContent = "TOO MUCH!";
+          return
+     }
+     if (afterCalculationFlag == 1) {
+          allClear()
+     }
      if (operand1 == null) {
+          if (displayValue == "0") {
+               displayValue =""
+          }
           buttonValue = this.textContent;
           displayValue += buttonValue;
-          displayScreen.textContent = displayValue;
+          displayScreen.textContent = displayValue; 
      } else if (operand1 != null) {
           if  (displayValue == operand1 && displayFlag != 1) {
                displayValue = ""
                displayFlag = 1 
           }
+          if (operand1 != null && displayValue=="0" && this.textContent == "0") {
+               return
+          }
+          if (operand1 != null && displayValue=="0") {
+               return
+          }
           buttonValue = this.textContent;
           displayValue += buttonValue;
           displayScreen.textContent = displayValue;
-     }
+     } 
 }
 
 calculationButtons.forEach((calculationButton) => {
      calculationButton.addEventListener('click', establishOperator)
-     calculationButton.addEventListener('click', operate)})
+     calculationButton.addEventListener('click', operate)
+})
 
 function establishOperator () {
      if (displayValue != "" && operator == null) {
      operator = this.dataset.value
      establishOperand1 ()
+     afterCalculationFlag = 0
      }    
 }
 
 function establishOperand1 () {
-     operand1 = parseInt(displayValue);
+     operand1 = parseFloat(displayValue);
      buttonValue = null
 }
 
 function establishOperand2 () {
-     operand2 = parseInt(displayValue);
+     operand2 = parseFloat(displayValue);
      buttonValue = null
 }
-
-
-
-
-
-
-
-
 
 function operate () {
      let result
      if (displayFlag == 1) {
           establishOperand2 ()
-          // console.log(result)
-          // console.log(operator)
-          // console.log(operand1)
-          // console.log(typeof operand1)
-          // console.log(operand2)
-          // console.log(typeof operand2)
      if (operator === "add") {
           result = add (operand1,operand2)
      } else if (operator === "subtract") {
@@ -100,7 +107,18 @@ function operate () {
      } else if (operator === "multiply") {
           result = multiply (operand1,operand2)
      } else if (operator === "divide") {
-          result = divide (operand1,operand2) 
+          result = divide (operand1,operand2)
+          if (operand1 == 0 || operand2 == 0) {
+               result = "ERROR"}
+     }
+     if (typeof result == "number"){
+          let shorter = result.toString().slice(0,10)
+          result = parseFloat(shorter)
+     }
+     let check =  result.toString()
+     if (check.length > 10) {
+          displayScreen.textContent = "TOO MUCH!";
+          return
      }
      displayScreen.textContent = result;
      displayValue = result
@@ -108,28 +126,20 @@ function operate () {
      operator = null
      operand2 = null 
      displayFlag = 0
+     afterCalculationFlag = 1
      }    
 }
 
-
-
-
-function add (operand1,operand2) {
-     return operand1+operand2
+function createNegative () {
+     let num = parseFloat(displayValue)
+     if (num > 0) {
+          displayValue = -Math.abs(num);
+          displayScreen.textContent = displayValue;
+     } else if (num < 0 ) {
+          displayValue = Math.abs(num);
+          displayScreen.textContent = displayValue;
+     }
 }
-
-function subtract (operand1,operand2) {
-     return operand1-operand2
-}
-
-function multiply (operand1,operand2) {
-     return operand1*operand2
-}
-
-function divide (operand1,operand2) {
-     return operand1/operand2
-}
-
 
 
 function allClear () {
@@ -140,20 +150,35 @@ function allClear () {
      operand1 = null
      operand2 = null
      displayFlag = 0
+     afterCalculationFlag = 0
+}
+
+function add (operand1,operand2) {
+     return operand1+operand2
+}
+
+function subtract (operand1,operand2) {
+     return operand1-operand2
+}
+
+function multiply (operand1,operand2) {
+     return operand1*operand2 
+}
+
+function divide (operand1,operand2) {
+     return operand1/operand2 
 }
 
 function clearEntry () {
-     displayValue = displayValue.substring(0, displayValue.length - 1)
-     buttonValue = displayValue.substring(displayValue.length - 1);
+     let stringed = displayValue.toString()
+     displayValue = stringed.substring(0, stringed.length - 1)
+     buttonValue = stringed.substring(stringed.length - 1);
      displayScreen.textContent = displayValue
 
      if (displayScreen.textContent.length == 0) {
           displayScreen.textContent = "0"
      }
 }
-
-
-
 
 
 
