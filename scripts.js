@@ -1,3 +1,5 @@
+// DEFINITIONS 
+
 let operator = null
 let operand1 = null
 let operand2 = null
@@ -20,7 +22,6 @@ const digitButtons = document.querySelectorAll('.digit');
 const displayScreen = document.querySelector('#displayScreen');
 
 const decimalButton = document.querySelector('#decimalButton');
-
 const divideButton = document.querySelector('#divideButton');
 const multiplyButton = document.querySelector('#multiplyButton');
 const subtractButton = document.querySelector('#subtractButton');
@@ -29,11 +30,14 @@ const equalsButton = document.querySelector('#equalsButton');
 const allClearButton = document.querySelector('#allClearButton');
 const clearEntryButton = document.querySelector('#clearEntryButton');
 const createNegativeButton = document.querySelector('#createNegativeButton');
+
 const calculationButtons = document.querySelectorAll('.calculate')
+const buttons = document.querySelectorAll('.button')
+
+// ESSENTIAL EVENT LISTENERES
 
 createNegativeButton.addEventListener('click',createNegative)
-
-
+decimalButton.addEventListener('click',addDecimal)
 allClearButton.addEventListener('click', allClear)
 clearEntryButton.addEventListener('click', clearEntry)
 
@@ -41,9 +45,18 @@ digitButtons.forEach ((digitButton) => {
      digitButton.addEventListener('click', changeDisplayValue)
 })
 
+calculationButtons.forEach((calculationButton) => {
+     calculationButton.addEventListener('click', establishOperator)
+     calculationButton.addEventListener('click', operate)
+})
+
+
+// MAIN FUNCTIONS
+
 function changeDisplayValue () {
      if (displayValue.length == 11) {
           displayScreen.textContent = "TOO MUCH!";
+          errorSound ()
           return
      }
      if (afterCalculationFlag == 1) {
@@ -73,10 +86,10 @@ function changeDisplayValue () {
      } 
 }
 
-calculationButtons.forEach((calculationButton) => {
-     calculationButton.addEventListener('click', establishOperator)
-     calculationButton.addEventListener('click', operate)
-})
+function establishOperand1 () {
+     operand1 = parseFloat(displayValue);
+     buttonValue = null
+}
 
 function establishOperator () {
      if (displayValue != "" && operator == null) {
@@ -84,11 +97,6 @@ function establishOperator () {
      establishOperand1 ()
      afterCalculationFlag = 0
      }    
-}
-
-function establishOperand1 () {
-     operand1 = parseFloat(displayValue);
-     buttonValue = null
 }
 
 function establishOperand2 () {
@@ -109,16 +117,13 @@ function operate () {
      } else if (operator === "divide") {
           result = divide (operand1,operand2)
           if (operand1 == 0 || operand2 == 0) {
-               result = "ERROR"}
+               result = "ERROR"
+               errorSound ()
+          }     
      }
      if (typeof result == "number"){
           let shorter = result.toString().slice(0,10)
           result = parseFloat(shorter)
-     }
-     let check =  result.toString()
-     if (check.length > 10) {
-          displayScreen.textContent = "TOO MUCH!";
-          return
      }
      displayScreen.textContent = result;
      displayValue = result
@@ -129,6 +134,26 @@ function operate () {
      afterCalculationFlag = 1
      }    
 }
+
+function add (operand1,operand2) {
+     return operand1+operand2
+}
+
+function subtract (operand1,operand2) {
+     return operand1-operand2
+}
+
+function multiply (operand1,operand2) {
+     return operand1*operand2 
+}
+
+function divide (operand1,operand2) {
+     return operand1/operand2 
+}
+
+
+// EXTRA BUTTONS
+
 
 function createNegative () {
      let num = parseFloat(displayValue)
@@ -153,141 +178,53 @@ function allClear () {
      afterCalculationFlag = 0
 }
 
-function add (operand1,operand2) {
-     return operand1+operand2
-}
-
-function subtract (operand1,operand2) {
-     return operand1-operand2
-}
-
-function multiply (operand1,operand2) {
-     return operand1*operand2 
-}
-
-function divide (operand1,operand2) {
-     return operand1/operand2 
-}
-
 function clearEntry () {
-     let stringed = displayValue.toString()
-     displayValue = stringed.substring(0, stringed.length - 1)
-     buttonValue = stringed.substring(stringed.length - 1);
-     displayScreen.textContent = displayValue
+     if (displayScreen.textContent != "ERROR") {
+          displayValue = displayValue.substring(0, displayValue.length - 1)
+          buttonValue = displayValue.substring(displayValue.length - 1);
+          displayScreen.textContent = displayValue
 
-     if (displayScreen.textContent.length == 0) {
-          displayScreen.textContent = "0"
+          if (displayScreen.textContent.length == 0) {
+               displayScreen.textContent = "0"
+          }
+     }
+}
+
+function addDecimal () {
+     if (displayValue.length > 0) {
+          if (displayValue.indexOf(".") == -1) {
+               displayValue += "."
+               displayScreen.textContent = displayValue
+          }
      }
 }
 
 
+// EXTRA LISTENERS
 
 
+buttons.forEach((button) => {
+     button.addEventListener('mouseover',handlerHover)
+     button.addEventListener('mouseleave',handlerUnhover)
+     button.addEventListener('click',clickSound)
+})
 
+function handlerHover () {
+     this.classList.add("hover")
+}
 
+function handlerUnhover () {
+     this.classList.remove("hover")
+}
 
+function clickSound () {
+     const clickSound = document.querySelector('#clickSound');
+     clickSound.currentTime = 0;
+     clickSound.play();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const gridInputButton = document.querySelector('.gridInputButton')
-// const gridInput = document.querySelector('.gridInput');
-// const resetButton = document.querySelector('.resetButton');
-// const buttons = document.querySelectorAll('.button');
-// let gridCells = null
-// let gridContainer = null
-// let gridColumns = null
-// let input = null
-// let toggle = false
-
-// function createGrid (num) {
-//      if (gridContainer != null) {
-//           main.removeChild(gridContainer)
-//      }
-//      if (num >= 10 && num <= 100) {
-//           gridContainer = document.createElement('div');
-//           gridContainer.classList.add('gridContainer');
-//           main.appendChild(gridContainer);
-//           const cellsAmountCheckpoint = num
-//           let cellsAmountWorker = cellsAmountCheckpoint
-//           for (num; num > 0; num--) {
-//                const gridColumn = document.createElement('div');
-//                gridColumn.classList.add('gridColumn');
-//                gridContainer.appendChild(gridColumn);
-//                for (cellsAmountWorker; cellsAmountWorker > 0; cellsAmountWorker--) {
-//                     const gridCell = document.createElement('div');
-//                     gridCell.classList.add('gridCell');
-//                     gridColumn.appendChild(gridCell);
-//                }
-//                cellsAmountWorker = cellsAmountCheckpoint
-//           }
-//           gridColumns = document.querySelectorAll('.gridColumns');
-//           gridCells = document.querySelectorAll('.gridCell');
-//           gridContainer.addEventListener('click',colorBlack)
-//      } else {
-//           gridContainer = null
-//      }
-// }
-
-// function generateGrid () { 
-//      input = document.getElementById("gridInput").value;
-//      createGrid(input)
-// }
-
-// function colorBlack () {
-
-//      if (toggle === false) {
-//           gridCells.forEach ((gridCell) => {
-//                gridCell.addEventListener('mouseover', handlerColor)
-//           toggle = true
-//      })} else if (toggle === true) { 
-//           gridCells.forEach ((gridCell) => {
-//                gridCell.removeEventListener('mouseover', handlerColor)
-//           toggle = false
-//      })     
-//      }
-// }
-
-// function handlerColor() {
-//      this.classList.add("black")
-// }
-
-
-// // buttons
-// gridInputButton.addEventListener('click',generateGrid)
-
-
-// buttons.forEach ((button) => {
-//      button.addEventListener('mouseover', handlerHover)
-//      button.addEventListener('mouseleave',handlerUnhover)
-//      }
-// )
-
-// resetButton.addEventListener('click',reset)
-
-// function handlerHover() {
-//      this.classList.add("hover")
-// }
-
-// function handlerUnhover() {
-//      this.classList.remove("hover")
-// }
-
-// function reset () {
-//      gridCells.forEach ((gridCell) => {
-//           gridCell.classList.remove("black")
-//           gridCell.removeEventListener('mouseover', handlerColor)
-//      })
-// }
+function errorSound () {
+     const errorSound = document.querySelector('#errorSound');
+     errorSound.currentTime = 0;
+     errorSound.play();
+}
