@@ -157,13 +157,26 @@ function divide (operand1,operand2) {
 
 function createNegative () {
      let num = parseFloat(displayValue)
-     if (num > 0) {
+     if (operand1 != null && operator == null) {
+          if (num > 0) {
+               displayValue = -Math.abs(num);
+               displayScreen.textContent = displayValue;
+          } else if (num < 0 ) {
+               displayValue = Math.abs(num);
+               displayScreen.textContent = displayValue;
+          }
+          return
+          }
+     else if  (displayValue == operand1 && displayFlag != 1) {
+          return }
+     else { 
+          if (num > 0) {
           displayValue = -Math.abs(num);
           displayScreen.textContent = displayValue;
-     } else if (num < 0 ) {
+          } else if (num < 0 ) {
           displayValue = Math.abs(num);
           displayScreen.textContent = displayValue;
-     }
+          }}
 }
 
 
