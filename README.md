@@ -6,6 +6,7 @@ Not happy about the looks, but at the time I was less aware of dynamic units.
 
 Things that could be improved:
 - yet again project that was unaware of pseudoclasses (uses eventlisteners instead):
+- - it's desktop only, fixed sizes, no media queries;
 - the way "rounding" numbers is handled; and
 - general clarity of the code.
 
